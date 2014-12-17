@@ -1,4 +1,4 @@
-# HAT - Hypermedia Application Toolkit
+# HAT - Hypermedia API Toolkit
 
 <img src="http://i.imgur.com/jwc0hRy.jpg"
  alt="HAT logo" title="Hypermedia application toolkit" align="right" />
@@ -67,6 +67,7 @@ that compose cleanly with your ring application.
 - Drop httpkit.
 - Add validation support.
 - Possibly split out the datomic persistance into an adapter library.
+- Write persistance layers for PostgreSQL, MySQL, SQLite.
 
 ## License
 

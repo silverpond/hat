@@ -1,5 +1,5 @@
 (defproject hat "0.1.0-SNAPSHOT"
-  :description "HAT (The hypermedia application toolkit) lets you build RESTful
+  :description "HAT (The Hypermedia API Toolkit) lets you build RESTful
                HTTP CRUD APIs that compose cleanly with your ring application."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
