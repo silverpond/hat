@@ -52,7 +52,7 @@ that compose cleanly with your ring application.
 
 ; Compose and start
 (defn -main []
-  (let [conn   (db/seed "datomic:dev://datomic:4334/some-database")
+  (let [conn   (db/connect "datomic:dev://datomic:4334/some-database")
         hosts  (hosts-description conn)
         events (events-description conn)]
     (-> (controllers/the-intermediate-step [hosts events])
