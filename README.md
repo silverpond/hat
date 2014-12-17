@@ -10,11 +10,12 @@ that compose cleanly with your ring application.
                        :singular-titlecase "Host"
                        :plural-name        "hosts"
                        :plural-titlecase   "Hosts"
-                       :conn               :conn
+                       :conn               database-connection
                        :db-entity-type     :host/name
                        :db-search-attr     :host/name
-                       :fields
-                       [{:title "Name" :name :host/name :type :text}]})
+                       :fields             [{:title "Name"
+                                             :name  :host/name
+                                             :type  :text}]})
 ```
 
 ## Todo
