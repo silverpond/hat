@@ -1,7 +1,8 @@
-# HAT ( The Hypermedia Application Toolkit )
+# HAT - Hypermedia Application Toolkit
 
 <img src="http://i.imgur.com/LqW3FEI.jpg"
- alt="HAT logo" title="Hypermedia application toolkit" align="right" />
+ alt="HAT logo" title="Hypermedia application toolkit" align="right"
+ width="200px" height="200px" />
 
 HAT (The hypermedia application toolkit) lets you build RESTful HTTP CRUD APIs
 that compose cleanly with your ring application.
