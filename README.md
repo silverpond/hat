@@ -17,16 +17,48 @@ that compose cleanly with your ring application.
 ## Usage
 
 ```clojure
-(generate-description {:singular-name      "host"
-                       :singular-titlecase "Host"
-                       :plural-name        "hosts"
-                       :plural-titlecase   "Hosts"
-                       :conn               database-connection
-                       :db-entity-type     :host/name
-                       :db-search-attr     :host/name
-                       :fields             [{:title "Name"
-                                             :name  :host/name
-                                             :type  :text}]})
+(defn hosts-description [database-connection]
+  (generate-description {:singular-name      "host"
+                         :singular-titlecase "Host"
+                         :plural-name        "hosts"
+                         :plural-titlecase   "Hosts"
+                         :conn               database-connection
+                         :db-entity-type     :host/name
+                         :db-search-attr     :host/name
+                         :fields             [{:title "Name"
+                                               :name  :host/name
+                                               :type  :text}]}))
+
+(def all-roles #{:public :user :admin})
+
+(def admin-only #{:admin})
+
+(def authorisation-rules
+  {:index  {:get all-roles}
+
+   :hosts  {:get all-roles :post admin-only}
+   :host   {:get all-roles :put  admin-only :delete admin-only}
+
+   :events {:get all-roles :post admin-only}
+   :event  {:get all-roles :put  admin-only :delete admin-only}})
+
+(defn authenticate
+  ([]
+   {:roles #{:public}})
+  ([username password]
+   (if (= password "adminpassword")
+     {:username username
+      :roles    all-roles})))
+
+(defn -main []
+  (let [conn         (db/seed "datomic:dev://datomic:4334/some-database")
+        hosts        (hosts-description conn)
+        events       (events-description conn)]
+    (-> (controllers/the-intermediate-step [hosts events])
+        (one-to-many hosts events :host/name :event/host)
+        (install-auth authenticate authorisation-rules)
+        controllers/start)))
+
 ```
 
 ## Todo
