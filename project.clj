@@ -1,7 +1,7 @@
 (defproject hat "0.1.0-SNAPSHOT"
   :description "HAT (The Hypermedia API Toolkit) lets you build RESTful
                HTTP CRUD APIs that compose cleanly with your ring application."
-  :url "http://example.com/FIXME"
+  :url "https://github.com/silverpond/hat"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
