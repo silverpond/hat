@@ -17,6 +17,7 @@ that compose cleanly with your ring application.
 ## Usage
 
 ```clojure
+; Resource description
 (defn hosts-description [database-connection]
   (generate-description {:singular-name      "host"
                          :singular-titlecase "Host"
@@ -29,16 +30,15 @@ that compose cleanly with your ring application.
                                                :name  :host/name
                                                :type  :text}]}))
 
+; Auth
 (def all-roles #{:public :user :admin})
 
 (def admin-only #{:admin})
 
 (def authorisation-rules
   {:index  {:get all-roles}
-
    :hosts  {:get all-roles :post admin-only}
    :host   {:get all-roles :put  admin-only :delete admin-only}
-
    :events {:get all-roles :post admin-only}
    :event  {:get all-roles :put  admin-only :delete admin-only}})
 
@@ -50,15 +50,15 @@ that compose cleanly with your ring application.
      {:username username
       :roles    all-roles})))
 
+; Compose and start
 (defn -main []
-  (let [conn         (db/seed "datomic:dev://datomic:4334/some-database")
-        hosts        (hosts-description conn)
-        events       (events-description conn)]
+  (let [conn   (db/seed "datomic:dev://datomic:4334/some-database")
+        hosts  (hosts-description conn)
+        events (events-description conn)]
     (-> (controllers/the-intermediate-step [hosts events])
         (one-to-many hosts events :host/name :event/host)
         (install-auth authenticate authorisation-rules)
         controllers/start)))
-
 ```
 
 ## Todo
