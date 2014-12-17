@@ -5,15 +5,17 @@ that compose cleanly with your ring application.
 
 ## Usage
 
-    (generate-description {:singular-name      "host"
-                           :singular-titlecase "Host"
-                           :plural-name        "hosts"
-                           :plural-titlecase   "Hosts"
-                           :conn               :conn
-                           :db-entity-type     :host/name
-                           :db-search-attr     :host/name
-                           :fields
-                           [{:title "Name" :name :host/name :type :text}]})
+```clojure
+(generate-description {:singular-name      "host"
+                       :singular-titlecase "Host"
+                       :plural-name        "hosts"
+                       :plural-titlecase   "Hosts"
+                       :conn               :conn
+                       :db-entity-type     :host/name
+                       :db-search-attr     :host/name
+                       :fields
+                       [{:title "Name" :name :host/name :type :text}]})
+```
 
 ## Todo
 
