@@ -1,4 +1,4 @@
-(defproject au.com.silverpond/hat "0.1.0"
+(defproject au.com.silverpond/hat "0.2.0"
   :description "HAT (The Hypermedia API Toolkit) lets you build RESTful
                HTTP CRUD APIs that compose cleanly with your ring application."
   :url "https://github.com/silverpond/hat"
@@ -9,4 +9,4 @@
                  [bidi "1.10.4"]
                  [http-kit "2.1.16"]
                  [liberator "0.11.1"]]
-  :test-matcher #".*test")
+  :test-matcher #".*test")t
