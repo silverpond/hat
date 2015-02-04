@@ -1,4 +1,4 @@
-(defproject hat "0.1.0-SNAPSHOT"
+(defproject au.com.silverpond/hat "0.1.0-SNAPSHOT"
   :description "HAT (The Hypermedia API Toolkit) lets you build RESTful
                HTTP CRUD APIs that compose cleanly with your ring application."
   :url "https://github.com/silverpond/hat"

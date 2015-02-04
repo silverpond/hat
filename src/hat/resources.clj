@@ -27,24 +27,24 @@
      {:allowed-methods [:options :get :post]
       :available-media-types available-media-types
 
-      :post! #(do {::id (db/insert conn [(edn-body (:request %))])})
+      :post! #(do {::id (db/insert conn (:db-entity-type description) [(edn-body (:request %))])})
       :post-redirect? #(do {:location (url-generator (:singular-ref description)
                                                      :id (::id %))})
 
       :handle-ok
       #(v/collection description
                      (if-let [query (get-in % [:request :query-params "query"])]
-                       (db/search conn query (:db-search-attr description))
+                       (db/search conn (:db-entity-type description) query (:db-search-attr description))
                        (db/all-entities conn (:db-entity-type description))))}
 
    (:singular-ref description)
      {:allowed-methods [:options :put :delete :get]
       :available-media-types available-media-types
 
-      :put! #(db/swap conn (id %) (edn-body (:request %)))
+      :put! #(db/swap conn (:db-entity-type description) (id %) (edn-body (:request %)))
       :new? #(not (::resource %))
 
-      :delete! #(db/delete conn (id %))
+      :delete! #(db/delete conn (:db-entity-type description) (id %))
 
       :exists? #(if-let [resource (db/entity conn (:db-entity-type description) (id %))] {::resource resource})
       :handle-ok #(v/singular description (::resource %))}})

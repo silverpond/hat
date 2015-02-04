@@ -1,18 +1,18 @@
 (ns hat.persistance.protocols)
 
 (defprotocol Creatable
-  (insert [conn data]))
+  (insert [conn table data]))
 
 (defprotocol Browseable
-  (all-entities [conn type])
-  (entity [conn type id]))
+  (all-entities [conn table])
+  (entity [conn table id]))
 
 (defprotocol Updateable
-  (swap [conn id data]))
+  (swap [conn table id data]))
 
 (defprotocol Deleteable
-  (delete [conn id]))
+  (delete [conn table id]))
 
 (defprotocol Searchable
-  (search [conn query attr]))
+  (search [conn table query attr]))
 

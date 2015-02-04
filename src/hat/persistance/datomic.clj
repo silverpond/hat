@@ -24,7 +24,7 @@
 
 (extend-type datomic.peer.Connection
   Creatable
-  (insert [conn data]
+  (insert [conn table data]
     (->> data
          (map #(assoc % :db/id #db/id[:db.part/user]))
          (d/transact conn)
@@ -32,23 +32,23 @@
          id-of-created))
 
   Deleteable
-  (delete [conn id]
+  (delete [conn table id]
     @(d/transact conn [[:db.fn/retractEntity (Long/parseLong id)]]))
 
   Updateable
-  (swap [conn id data]
-    (delete conn id)
+  (swap [conn table id data]
+    (delete table conn id)
     (id-of-created @(d/transact conn [(assoc data :db/id (Long/parseLong id))])))
 
   Browseable
-  (all-entities [conn type]
-    (entities-query `[:find ?e :where [?e ~type]] (d/db conn)))
+  (all-entities [conn table]
+    (entities-query `[:find ?e :where [?e ~table]] (d/db conn)))
 
-  (entity [conn type id]
+  (entity [conn table id]
     (actual-entity (d/db conn) (Long/parseLong id)))
 
   Searchable
-  (search [conn query attr]
+  (search [conn table query attr]
     (entities-query
       '[:find ?e
         :in $ ?attr ?query
