@@ -46,7 +46,7 @@
 
       :delete! #(db/delete conn (id %))
 
-      :exists? #(if-let [resource (db/entity conn (id %))] {::resource resource})
+      :exists? #(if-let [resource (db/entity conn (:db-entity-type description) (id %))] {::resource resource})
       :handle-ok #(v/singular description (::resource %))}})
 
 (defn resources [descriptions]

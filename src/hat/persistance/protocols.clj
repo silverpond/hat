@@ -5,7 +5,7 @@
 
 (defprotocol Browseable
   (all-entities [conn type])
-  (entity [conn id]))
+  (entity [conn type id]))
 
 (defprotocol Updateable
   (swap [conn id data]))

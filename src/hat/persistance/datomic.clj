@@ -44,7 +44,7 @@
   (all-entities [conn type]
     (entities-query `[:find ?e :where [?e ~type]] (d/db conn)))
 
-  (entity [conn id]
+  (entity [conn type id]
     (actual-entity (d/db conn) (Long/parseLong id)))
 
   Searchable
