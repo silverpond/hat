@@ -1,6 +1,5 @@
 (ns hat.controllers
-  (:require [org.httpkit.server  :as httpkit]
-            [hat.resources :as r]
+  (:require [hat.resources :as r]
             [liberator.representation   :refer [render-map-generic]]
             [liberator.core             :refer [resource]]
             [hat.routes                 :refer [router] :as routes]
@@ -42,11 +41,10 @@
 
 (defn start [{:keys [routes resources]}]
   (let [resourcified-resources (map-values resources resource)]
-    (httpkit/run-server (-> (make-base-handler routes resourcified-resources)
+    (-> (make-base-handler routes resourcified-resources)
                             (wrap-resource "public")
                             wrap-file-info
                             wrap-params
                             wrap-cors
-                            (wrap-routes-binding routes))
-                        {:port 8080})))
+                            (wrap-routes-binding routes))))
 

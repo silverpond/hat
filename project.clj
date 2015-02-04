@@ -7,6 +7,5 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/data.codec "0.1.0"]
                  [bidi "1.10.4"]
-                 [http-kit "2.1.16"]
                  [liberator "0.11.1"]]
   :test-matcher #".*test")

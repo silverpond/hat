@@ -64,7 +64,6 @@ application.
 ## Todo
 
 - Improve documentation.
-- Drop httpkit.
 - Add validation support.
 - Possibly split out the datomic persistance into an adapter library.
 - Write persistance layers for PostgreSQL, MySQL, SQLite.
