@@ -9,4 +9,4 @@
                  [bidi "1.10.4"]
                  [http-kit "2.1.16"]
                  [liberator "0.11.1"]]
-  :test-matcher #".*test")t
+  :test-matcher #".*test")
