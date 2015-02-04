@@ -14,7 +14,9 @@
 (defn- actual-entity [db id]
   (let [datomic-entity (d/entity db id)]
     (if (keys datomic-entity)
-      (assoc (into {} datomic-entity) :db/id (:db/id datomic-entity)))))
+      (-> (into {} datomic-entity)
+          (assoc :db/id (:db/id datomic-entity))
+          (assoc :hat/id (str (:db/id datomic-entity)))))))
 
 (defn- entities-query [query db & sources]
   (for [[id] (apply d/q (concat [query db] sources))]

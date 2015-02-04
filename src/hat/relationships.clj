@@ -24,7 +24,7 @@
           response (:add-action-name relationship)
           (map #(do {:name  (:parent-attr relationship)
                      :type  :radio
-                     :value (:db/id %)
+                     :value (:hat/id %)
                      :title ((:field-title-attr relationship) %)})
                parent-entities))))))
 
@@ -41,9 +41,9 @@
             response (:replace-action-name relationship)
             (map #(do {:name (:parent-attr relationship)
                        :type :radio
-                       :value (:db/id %)
+                       :value (:hat/id %)
                        :title ((:field-title-attr relationship) %)
-                       :checked (= (:db/id parent) (:db/id %))})
+                       :checked (= (:hat/id parent) (:hat/id %))})
                  parent-entities)))))))
 
 

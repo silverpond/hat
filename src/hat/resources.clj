@@ -11,10 +11,13 @@
 (defn- edn-body [request]
   (-> request :body clojure.java.io/reader PushbackReader. edn/read))
 
+(def available-media-types
+  ["text/plain" "application/edn" "application/json"])
+
 (defn make-index [descriptions]
   {:index
      {:allowed-methods [:options :get]
-      :available-media-types ["text/plain" "application/edn"]
+      :available-media-types available-media-types
 
       :handle-ok (fn [_] (reduce v/add-entries-to-index (v/index)
                                          (map v/index-entries descriptions)))}})
@@ -22,7 +25,7 @@
 (defn make-admin-area [{:keys [conn] :as description}]
   {(:collection-ref description)
      {:allowed-methods [:options :get :post]
-      :available-media-types ["text/plain" "application/edn"]
+      :available-media-types available-media-types
 
       :post! #(do {::id (db/insert conn [(edn-body (:request %))])})
       :post-redirect? #(do {:location (url-generator (:singular-ref description)
@@ -36,7 +39,7 @@
 
    (:singular-ref description)
      {:allowed-methods [:options :put :delete :get]
-      :available-media-types ["text/plain" "application/edn"]
+      :available-media-types available-media-types
 
       :put! #(db/swap conn (id %) (edn-body (:request %)))
       :new? #(not (::resource %))

@@ -19,9 +19,9 @@
 
 (defn singular [view-definition resource]
   (let [self-url (url-generator (:singular-ref view-definition)
-                                :id (:db/id resource))]
+                                :id (:hat/id resource))]
     {:class (:singular-class view-definition)
-     :properties resource
+     :properties (dissoc resource :hat/id)
      :links [{:rel  ["self"]
               :href self-url}
              {:rel  ["listing"]
@@ -44,11 +44,11 @@
 
 (defn entity [view-definition resource]
   (let [self-url (url-generator (:singular-ref view-definition)
-                                :id (:db/id resource))]
+                                :id (:hat/id resource))]
     {:class      (:entity-classes view-definition)
      :rel        (:entity-rels view-definition)
      :href       self-url
-     :properties resource
+     :properties (dissoc resource :hat/id)
      :actions
      (into []
            (filter identity
