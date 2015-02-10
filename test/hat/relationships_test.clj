@@ -11,7 +11,6 @@
      :plural-name        "hosts"
      :plural-titlecase   "Hosts"
      :conn               :conn
-     :db-entity-type     :host/name
      :db-search-attr     :host/name
      :fields
      (constantly
@@ -29,7 +28,6 @@
      :plural-name        "events"
      :plural-titlecase   "Events"
      :conn               :conn
-     :db-entity-type     :event/name
      :db-search-attr     :event/name
      :fields
      (constantly

@@ -2,8 +2,7 @@
 
 (defn generate-description [{:keys [singular-name singular-titlecase
                                     plural-name plural-titlecase
-                                    fields
-                                    conn db-entity-type db-search-attr]}]
+                                    fields conn db-search-attr]}]
   {;Singular resource
    :singular-class        singular-name
 
@@ -34,7 +33,6 @@
 
    ; Database
    :conn                  conn
-   :db-entity-type        db-entity-type
    :db-search-attr        db-search-attr
 
    ; Routes

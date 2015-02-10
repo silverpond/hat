@@ -24,7 +24,6 @@ application.
                          :plural-name        "hosts"
                          :plural-titlecase   "Hosts"
                          :conn               database-connection
-                         :db-entity-type     :host/name
                          :db-search-attr     :host/name
                          :fields             [{:title "Name"
                                                :name  :host/name

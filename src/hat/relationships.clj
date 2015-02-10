@@ -18,8 +18,7 @@
   (modify-output
     r-n-r (:collection-ref relationship) :handle-ok
     (fn [response]
-      (let [parent-entities (db/all-entities (:parent-conn relationship)
-                                             (:selection-attr relationship))]
+      (let [parent-entities (db/all-entities (:parent-conn relationship))]
         (add-fields
           response (:add-action-name relationship)
           (map #(do {:name  (:parent-attr relationship)
@@ -35,8 +34,7 @@
         (let [parent          ((:parent-attr relationship)
                                (:clj-admin.resources/resource ctx))
               response        (handler ctx)
-              parent-entities (db/all-entities (:parent-conn relationship)
-                                               (:selection-attr relationship))]
+              parent-entities (db/all-entities (:parent-conn relationship))]
           (add-fields
             response (:replace-action-name relationship)
             (map #(do {:name (:parent-attr relationship)
@@ -59,7 +57,6 @@
       rnr
       (assoc many-subset
              :field-title-attr  field-title-attr
-             :selection-attr    (:db-entity-type one)
              :parent-attr       parent-attr
              :parent-conn       (:conn one)
              :child-conn        (:conn many)))))
