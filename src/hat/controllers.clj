@@ -8,10 +8,12 @@
             [ring.middleware.params     :refer [wrap-params]]))
 
 (def index-route
-  {"" :index})
+  {"" :index
+   "/" :index
+   })
 
 (defn- make-routes [descriptions]
-  ["/" (reduce merge (conj (map :routes-entries descriptions) index-route))])
+  (reduce merge (conj (map :routes-entries descriptions) index-route)))
 
 (defn- make-base-handler [routes resources]
   (fn [request] (router routes resources request)))
@@ -27,9 +29,13 @@
 (defn map-values [m f]
   (into {} (map (fn [[k v]] [k (f v)]) m)))
 
-(defn the-intermediate-step [descriptions]
-  {:routes    (make-routes descriptions)
-   :resources (r/resources descriptions)})
+(defn the-intermediate-step
+  ([descriptions]
+   (the-intermediate-step "" descriptions))
+  ([mount-path descriptions]
+   (let [routes (make-routes descriptions)]
+     {:routes    [mount-path           routes]
+    :resources (r/resources descriptions)})))
 
 (defn wrap-cors [handler]
   (fn [request]
