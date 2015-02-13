@@ -36,7 +36,7 @@
    :db-search-attr        db-search-attr
 
    ; Routes
-   :routes-entries        {(str "/"  plural-name) (keyword plural-name)
+   :routes-entries        {(str "/" plural-name) (keyword plural-name)
                            [(str "/" plural-name "/") :id] (keyword singular-name)}
 
    ; Index

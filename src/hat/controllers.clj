@@ -9,8 +9,7 @@
 
 (def index-route
   {"" :index
-   "/" :index
-   })
+   "/" :index})
 
 (defn- make-routes [descriptions]
   (reduce merge (conj (map :routes-entries descriptions) index-route)))
