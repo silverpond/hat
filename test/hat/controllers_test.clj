@@ -44,7 +44,8 @@
 
 (deftest index
   (-> (request :get "/")
-      assert-ok))
+      assert-ok
+      (body-contains #"index")))
 
 (deftest listing
   (-> (request :get "/hosts")
