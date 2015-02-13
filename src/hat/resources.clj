@@ -11,6 +11,9 @@
 (defn- edn-body [request]
   (-> request :body clojure.java.io/reader PushbackReader. edn/read))
 
+(defn- get? [request]
+  (= :get (get-in request [:request :request-method])))
+
 (def available-media-types
   ["text/plain" "application/edn" "application/json"])
 
@@ -31,24 +34,32 @@
       :post-redirect? #(do {:location (url-generator (:singular-ref description)
                                                      :id (::id %))})
 
-      :handle-ok
-      #(v/collection description
-                     (if-let [query (get-in % [:request :query-params "query"])]
-                       (db/search conn query (:db-search-attr description))
-                       (db/all-entities conn)))}
+      :malformed?
+      #(if (get? %)
+         [false {::resource
+                 (if-let [query (get-in % [:request :query-params "query"])]
+                   (db/search conn query (:db-search-attr description))
+                   (db/all-entities conn))}])
+
+      :handle-ok #(v/collection description (::resource %))}
 
    (:singular-ref description)
      {:allowed-methods [:options :put :delete :get]
       :available-media-types available-media-types
+
+      :malformed? #(if (get? %)
+                     (if-let [resource (db/entity conn (id %))]
+                       [false {::resource resource}]))
 
       :put! #(db/swap conn (id %) (edn-body (:request %)))
       :new? #(not (::resource %))
 
       :delete! #(db/delete conn (id %))
 
-      :exists? #(if-let [resource (db/entity conn (id %))] {::resource resource})
+      :exists? #(::resource %)
       :handle-ok #(v/singular description (::resource %))}})
 
 (defn resources [descriptions]
   (reduce merge (conj (map make-admin-area descriptions)
                       (make-index descriptions))))
+
