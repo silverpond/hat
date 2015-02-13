@@ -46,8 +46,8 @@
           :db-search-attr        :host/name
 
           ; Routes
-          :routes-entries        {"hosts" :hosts
-                                  ["hosts/" :id] :host}
+          :routes-entries        {"/hosts" :hosts
+                                  ["/hosts/" :id] :host}
 
           ; Index
           :index-rel             ["hosts"]}
