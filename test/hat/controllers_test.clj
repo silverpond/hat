@@ -35,14 +35,24 @@
             :uri uri}))
 
 (defn assert-ok [response]
-  (assert (= 200 (:status response))))
+  (is (= 200 (:status response)))
+  response)
+
+(defn body-contains [response pattern]
+  (is (re-find pattern (:body response)))
+  response)
 
 (deftest index
-  (assert-ok (request :get "/")))
+  (-> (request :get "/")
+      assert-ok))
 
 (deftest listing
-  (assert-ok (request :get "/hosts")))
+  (-> (request :get "/hosts")
+      assert-ok
+      (body-contains #"Seed host")))
 
 (deftest detail
-  (assert-ok (request :get "/hosts/1")))
+  (-> (request :get "/hosts/1")
+      assert-ok
+      (body-contains #"Seed host")))
 
