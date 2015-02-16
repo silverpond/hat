@@ -25,9 +25,9 @@ application.
                          :plural-titlecase   "Hosts"
                          :conn               database-connection
                          :db-search-attr     :host/name
-                         :fields             [{:title "Name"
-                                               :name  :host/name
-                                               :type  :text}]}))
+                         :fields             #(do [{:title "Name"
+                                                    :name  :host/name
+                                                    :type  :text}]})))
 
 ; Auth
 (def all-roles #{:public :user :admin})
