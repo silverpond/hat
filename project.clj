@@ -7,5 +7,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/data.codec "0.1.0"]
                  [bidi "1.10.4"]
-                 [liberator "0.11.1"]]
+                 [liberator "0.11.1"]
+                 
+                 [vlad "1.1.0"]]
   :test-matcher #".*test")
