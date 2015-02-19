@@ -17,7 +17,9 @@
                  (if (= method (get-in req [:request :request-method]))
                    (let [errors (validate validator (:hat.resources/body req))]
                      [(empty? errors) ::errors errors])
-                   (if (not (nil? processable)) (processable req)))))))
+                   (if (nil? processable)
+                     true
+                     (processable req)))))))
 
 (defn install-validations [rnr rules]
   (->> rules
